@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DATC — Can authorities trust what's in the sky?</title>
+<meta name="description" content="Drones can already do the work. What stops them is that no authority can check, in real time, whose drone that is. DATC is an early-stage attempt at that layer — and an honest account of how far it has got.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<meta property="og:url" content="https://datc-drones.in/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Can authorities trust what's in the sky?">
+<meta property="og:description" content="Drones can already do the work. What stops them is that no authority can check, in real time, whose drone that is. DATC is an early-stage attempt at that layer — and an honest account of how far it has got.">
+<meta property="og:image" content="https://datc-drones.in/public/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="DATC">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Can authorities trust what's in the sky?">
+<meta name="twitter:description" content="Drones can already do the work. What stops them is that no authority can check, in real time, whose drone that is. DATC is an early-stage attempt at that layer — and an honest account of how far it has got.">
+<meta name="twitter:image" content="https://datc-drones.in/public/og.jpg">
+<link rel="canonical" href="https://datc-drones.in/">
+<link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="public/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js');</script>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+    <a href="#top" class="wordmark">
+      <img src="public/logo-mark.png" alt="" class="wordmark-mark">
+      <span>DATC</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#gap"       data-spy="gap">The gap</a></li>
+      <li><a href="#precedent" data-spy="precedent">Precedent</a></li>
+      <li><a href="#approach"  data-spy="approach">Approach</a></li>
+      <li><a href="#status"    data-spy="status">Status</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a class="nav-icon" href="mailto:vihaan.mittal@pathways.in?subject=DATC%20feedback" aria-label="Email Vihaan">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2.5"/>
+          <path d="M3.5 7.2 12 13l8.5-5.8"/>
+        </svg>
+      </a>
+      <a class="nav-go" href="#contact" aria-label="Go to contact">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ══ 1. HERO — three beats ══ -->
+  <section class="hero" id="hero">
+    <a class="hero-skip" href="#gap">Skip the intro</a>
+    <div class="hero-stage">
+      <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero-scrim scrim-l" aria-hidden="true"></div>
+      <div class="hero-scrim scrim-r" aria-hidden="true"></div>
+      <div class="hero-frames">
+
+        <article class="hero-frame" data-beat="a">
+          <p class="eyebrow">One drone. One simple question.</p>
+          <h1>Can authorities trust what's in the sky?</h1>
+        </article>
+
+        <article class="hero-frame" data-beat="b">
+          <p class="eyebrow eyebrow-denied">Unverified</p>
+          <p class="hero-line">They can't even tell whose it is.</p>
+          <p class="hero-note">So the safe answer is no — and the rules stay restrictive.</p>
+        </article>
+
+        <article class="hero-frame" data-beat="c">
+          <p class="eyebrow">The missing piece</p>
+          <p class="hero-line">Not a better drone. A way to prove whose it is.</p>
+          <p class="hero-note">An early attempt at that. Most of it isn't built yet.</p>
+          <p class="hero-mech">Identify<i>·</i>Verify<i>·</i>Authorize<i>·</i>Monitor</p>
+        </article>
+
+      </div>
+      <div class="id-tag" id="idTag" aria-hidden="true">
+        <span class="id-dot"></span>
+        <span class="id-body">
+          <span class="id-code">DATC-AEROSURVEY-0042</span>
+          <span class="id-state">Authorized</span>
+        </span>
+      </div>
+      <div class="hero-progress" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+  </section>
+
+  <!-- ══ 2. THE GAP ══ -->
+  <section class="section" id="gap">
+    <div class="container">
+      <p class="section-label"><i>01</i>Where drones stall today</p>
+
+      <div class="stat-grid">
+        <div class="stat-block">
+          <p class="stat-number" data-count="2.5" data-decimals="1" data-prefix="₹" data-suffix="T">₹2.5T</p>
+          <p class="stat-label">India's projected drone market by 2030</p>
+        </div>
+        <div class="stat-block">
+          <p class="stat-number" data-count="38575" data-decimals="0">38,575</p>
+          <p class="stat-label">drones nationwide with a verified ID today</p>
+        </div>
+      </div>
+      <p class="stat-caption">The distance between those two numbers is trust.</p>
+
+      <h2>Authorities can't see what's in the sky, so they can't trust it.</h2>
+      <div class="prose">
+        <p>
+          Drone compliance in both the US and India runs on paperwork and registration, not
+          real-time field identification. Agencies have no reliable way to tell an authorized
+          drone from an unauthorized one while it's actually in the air.
+        </p>
+        <p>
+          India's own attempt, Digital Sky, is fragmented across portals and leans on operator
+          self-declaration — unreliable enough that DGCA began migrating drone services to eGCA
+          in 2025. Remote ID broadcast isn't mandated until 2027.
+        </p>
+        <p>
+          So regulators choose between under-enforcement and blanket restriction. Those
+          restrictions stalled two of my own drone projects, which is how I ended up here.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 3. THE PRECEDENT — pinned scroll sequence ══ -->
+  <section class="section-steel precedent" id="precedent">
+    <div class="precedent-stage">
+      <div class="container">
+        <p class="section-label"><i>02</i>What aviation did in 2010</p>
+        <h2>Aviation already solved this once.</h2>
+
+        <figure class="pr-scene">
+          <svg viewBox="0 0 900 250" class="pr-svg" role="img"
+               aria-label="Before ADS-B controllers relied on radar; afterwards each aircraft broadcast its own verified position to the ground station every second.">
+            <!-- ground -->
+            <path d="M40 214 H860" stroke="currentColor" stroke-width="1" opacity="0.22"/>
+
+            <defs>
+              <linearGradient id="beamFade" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%"   stop-color="currentColor" stop-opacity="0.42"/>
+                <stop offset="55%"  stop-color="currentColor" stop-opacity="0.10"/>
+                <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- radar: a sector scanner at the tower, sweeping on its own clock -->
+            <g class="pr-radar">
+              <g class="pr-rings">
+                <path d="M770 214 A130 130 0 0 1 640 84"  stroke="currentColor" fill="none" stroke-width="1" opacity="0.28" stroke-dasharray="2 8"/>
+                <path d="M770 214 A200 200 0 0 1 570 14"  stroke="currentColor" fill="none" stroke-width="1" opacity="0.18" stroke-dasharray="2 8"/>
+                <path d="M770 214 A260 260 0 0 1 510 -46" stroke="currentColor" fill="none" stroke-width="1" opacity="0.10" stroke-dasharray="2 8"/>
+              </g>
+              <!-- The wedge is the afterglow; the line is the beam itself. -->
+              <g class="pr-beam">
+                <path class="pr-wedge" d="M0 0 L262 0 A262 262 0 0 0 253.0 -67.8 Z" fill="url(#beamFade)"/>
+                <line x1="0" y1="0" x2="262" y2="0" stroke="currentColor" stroke-width="1.2" opacity="0.55"/>
+              </g>
+              <!-- The return: visible only as the beam crosses the aircraft. -->
+              <circle class="pr-blip" cx="0" cy="0" r="4" fill="currentColor" opacity="0"/>
+              <circle class="pr-blip-ring" cx="0" cy="0" r="4" fill="none" stroke="currentColor" stroke-width="1" opacity="0"/>
+            </g>
+
+            <!-- uncertainty over the aircraft, before it can identify itself -->
+            <g class="pr-unknown"><text x="0" y="0" class="pr-q">?</text></g>
+
+            <!-- the verified position link -->
+            <path class="pr-link" d="M0 0" stroke="currentColor" stroke-width="1.3" fill="none" stroke-dasharray="4 7"/>
+
+            <!-- broadcast arcs, carried with the aircraft -->
+            <g class="pr-signal" stroke="currentColor" fill="none" stroke-width="1.4" stroke-linecap="round">
+              <path d="M18 -18 A18 18 0 0 1 18 18"/>
+              <path d="M18 -30 A30 30 0 0 1 18 30"/>
+              <path d="M18 -42 A42 42 0 0 1 18 42"/>
+            </g>
+
+            <!-- aircraft, top-down -->
+            <g class="pr-plane" fill="currentColor">
+              <path d="M40 0 L28 -5 L10 -6 L-6 -26 L-14 -26 L-4 -6 L-20 -5 L-26 -12 L-31 -12
+                       L-28 -4 L-32 0 L-28 4 L-31 12 L-26 12 L-20 5 L-4 6 L-14 26 L-6 26
+                       L10 6 L28 5 Z"/>
+            </g>
+
+            <!-- ground station -->
+            <g class="pr-tower" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
+              <path d="M750 214 L770 140 L790 214 M756 190 H784 M770 140 V124"/>
+            </g>
+
+            <!-- what the controller now sees -->
+            <g class="pr-readout">
+              <rect x="614" y="36" width="212" height="62" rx="8" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+              <text x="628" y="60" class="pr-mono">ID · VERIFIED</text>
+              <text x="628" y="80" class="pr-mono">POSITION · 1s AGO</text>
+            </g>
+          </svg>
+        </figure>
+
+        <div class="pr-steps">
+          <p class="pr-step" data-step="0">
+            Before ADS-B, controllers relied on radar — an echo off an aircraft that could not
+            say who it was. Slower, less accurate, less certain.
+          </p>
+          <p class="pr-step" data-step="1">
+            ADS-B changed the direction of the information. Each aircraft broadcasts its own
+            verified position, once a second, and the ground simply listens.
+          </p>
+          <p class="pr-step" data-step="2">
+            The FAA mandated it in 2010 and gave the industry a decade to fit it. The lesson
+            isn't the radio protocol — it's the order the four things happened in.
+          </p>
+        </div>
+
+        <ol class="pr-chain">
+          <li data-link="0">Visibility</li>
+          <li data-link="1">Trust</li>
+          <li data-link="2">Regulation</li>
+          <li data-link="3">Growth</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 4. WHAT DATC IS — orientation ══ -->
+  <section class="section whatis" id="whatis">
+    <div class="container">
+      <p class="section-label"><i>03</i>What DATC actually is</p>
+      <h2>DATC is a way to check whose drone that is — while it's still in the air.</h2>
+
+      <ol class="role-flow">
+        <li class="role">
+          <span class="role-tag">The drone</span>
+          <p>Carries a module that reports its identity continuously, in flight.</p>
+        </li>
+        <li class="role role-mid">
+          <span class="role-tag">DATC</span>
+          <p>Checks that identity and its permission against a live central record.</p>
+        </li>
+        <li class="role">
+          <span class="role-tag">The authority</span>
+          <p>Sees what is actually flying — and can clear it, or ground it.</p>
+        </li>
+      </ol>
+
+      <p class="whatis-close">
+        That's the whole idea. Everything below is how far it has actually got.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ 4. THE APPROACH ══ -->
+  <section class="section" id="approach">
+    <div class="container">
+      <p class="section-label"><i>04</i>How it works, in three parts</p>
+      <h2>Give the drone an identity it reports in real time.</h2>
+      <p class="prose">The same idea, applied to drones, in three parts.</p>
+
+      <ol class="mech-list">
+        <li class="mech-step">
+          <span class="mech-index">01</span>
+          <div>
+            <h3>Verifiable identity</h3>
+            <p>A unique ID tied to owner, model and licence validity — checked electronically in flight, not once at registration.</p>
+          </div>
+        </li>
+        <li class="mech-step">
+          <span class="mech-index">02</span>
+          <div>
+            <h3>Live authorization</h3>
+            <p>Permission status updates from a central platform, instead of living in a record the operator controls and declares.</p>
+          </div>
+        </li>
+        <li class="mech-step">
+          <span class="mech-index">03</span>
+          <div>
+            <h3>Real-time intervention</h3>
+            <p>An authority can ground an active flight, rather than deny a permit beforehand or read a log afterwards.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══ 5. WHAT'S BUILT ══ -->
+  <section class="section" id="status">
+    <div class="container">
+      <p class="section-label"><i>05</i>Built, and not built</p>
+      <h2>This is early. Here's what's built and what isn't.</h2>
+
+      <div class="evidence">
+        <figure class="shot">
+          <img src="public/shot-dashboard.jpg" loading="lazy" width="1372" height="892"
+               alt="The authority approval dashboard: a pending registration showing computed thrust margin, endurance rating, payload utilization and wind risk, with structured denial reasons and approve or deny actions.">
+          <figcaption>The authority dashboard. Safety metrics are computed from the submitted specification; denials carry a structured reason.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="public/shot-registration.jpg" loading="lazy" width="1100" height="871"
+               alt="The drone registration form, collecting takeoff weight, payload, motor thrust, motor count, battery capacity, cruise power and wind tolerance.">
+          <figcaption>Registration. The physical figures here are what the safety analysis runs on.</figcaption>
+        </figure>
+      </div>
+
+      <div class="status-list">
+        <div class="status-row">
+          <span class="pill pill-built">Built</span>
+          <div class="status-text">
+            <h4>Registration &amp; safety analysis</h4>
+            <p>A web form feeding a SQLite backend that scores thrust margin, endurance, wind risk and payload utilization automatically.</p>
+          </div>
+        </div>
+        <div class="status-row">
+          <span class="pill pill-built">Built</span>
+          <div class="status-text">
+            <h4>Authority approval dashboard</h4>
+            <p>A desktop app where an authority reviews pending registrations against those metrics and approves or denies with a structured reason.</p>
+          </div>
+        </div>
+        <div class="status-row">
+          <span class="pill pill-built">Built</span>
+          <div class="status-text">
+            <h4>Encrypted licence credential</h4>
+            <p>Approved drones get a Fernet-encrypted QR licence. The link it points to isn't hosted yet — a known gap, not a hidden one.</p>
+          </div>
+        </div>
+        <div class="status-row">
+          <span class="pill pill-prelim">Preliminary</span>
+          <div class="status-text">
+            <h4>Physical module</h4>
+            <p>Early experiments only: API calls, heartbeat, control logic over Wi-Fi. No long-range link. The plan is cellular; it isn't built.</p>
+          </div>
+        </div>
+        <div class="status-row">
+          <span class="pill pill-planned">Planned</span>
+          <div class="status-text">
+            <h4>Real-world testing</h4>
+            <p>Nothing has flown. Performance under real conditions is unknown.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="limits">
+        <h3>Two problems this doesn't solve</h3>
+        <p>
+          <strong>It only matters if authorities adopt it.</strong> Without regulatory
+          integration, a verification layer nobody is obliged to check is just a concept.
+        </p>
+        <p>
+          <strong>It centralises sensitive data.</strong> Licensing and operator records in
+          one place raises privacy and governance questions that would need answering — access
+          controls, retention, legal basis — before any of this went near a real deployment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 6. THE OPEN PROBLEM — the actual ask ══ -->
+  <section class="section section-highlight" id="question">
+    <div class="container">
+      <p class="section-label"><i>06</i>The problem I can't solve</p>
+      <h2>A verification system with no safe way to fail.</h2>
+
+      <div class="prose">
+        <p>
+          All of this depends on a live cellular link. When that link drops — and in
+          India it drops constantly — there are two things the system can do, and both
+          of them are wrong.
+        </p>
+      </div>
+
+      <div class="fork">
+        <div class="fork-side">
+          <span class="fork-tag">Fail open</span>
+          <p>
+            The drone keeps flying, unverified. Then anyone who wants to avoid
+            verification just flies where there is no coverage, or jams the link.
+            A system defeated by a dead zone is not a verification system.
+          </p>
+        </div>
+        <div class="fork-side">
+          <span class="fork-tag">Fail closed</span>
+          <p>
+            The drone grounds itself. Then a network outage grounds lawful flights,
+            and no operator or regulator will accept infrastructure that turns a
+            dropped signal into a grounded fleet.
+          </p>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>
+          And the geography is the worst part. Reforestation, anti-logging patrols,
+          crop surveys, disaster response — the work that most needs drones happens
+          exactly where cellular coverage is weakest. It works best where it's needed least.
+        </p>
+        <p>
+          I don't know the answer. A cached authorization valid for a bounded window?
+          A store-and-forward log that reconciles on reconnect? Something that doesn't
+          depend on the network at all?
+        </p>
+        <p>
+          If you've built real-time systems over unreliable links, or worked on drone
+          comms, that's the conversation I'm looking for.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 7. THE ASK ══ -->
+  <section class="section contact-section" id="contact">
+    <div class="container">
+      <p class="section-label"><i>07</i>The ask</p>
+      <h2>Fifteen minutes would help a lot.</h2>
+      <p class="prose">Vihaan Mittal — Grade 9, Pathways School Gurgaon.</p>
+      <a class="cta-button" href="mailto:vihaan.mittal@pathways.in?subject=DATC%20feedback">Email me</a>
+
+      <!-- mailto: silently does nothing without a configured mail client, so the
+           address is also shown plainly and can be copied. -->
+      <p class="contact-alt">
+        or copy it —
+        <button type="button" class="copy-mail" data-mail="vihaan.mittal@pathways.in">
+          <span class="copy-mail-text">vihaan.mittal@pathways.in</span>
+        </button>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>DATC — 2026</p>
+  <p class="credit">
+    Aircraft model: <a href="https://skfb.ly/o8rsR">DJI Mavic 3</a> by llirikslon,
+    <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+    Environment: <a href="https://polyhaven.com/a/sunset_jhbcentral">Joburg Central Sunset</a>, Poly Haven, CC0.
+  </p>
+</footer>
+
+<script type="module" src="hero.js"></script>
+</body>
+</html>

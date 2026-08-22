@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "datc",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "devserver.py"
+      ],
+      "autoPort": true
+    }
+  ]
+}
