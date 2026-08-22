@@ -21,9 +21,13 @@ done
 
 echo
 echo "GitHub"
-code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 15 https://github.com/Vihaancoding/datc)
-if [ "$code" = "200" ]; then
-  echo "  repo exists — ready to push"
+git fetch -q origin main 2>/dev/null
+local=$(git rev-parse main 2>/dev/null)
+remote=$(git rev-parse origin/main 2>/dev/null)
+if [ -z "$remote" ]; then
+  echo "  cannot reach the repo"
+elif [ "$local" = "$remote" ]; then
+  echo "  in sync at ${local:0:7}"
 else
-  echo "  not created yet (HTTP $code) — make an empty public repo named datc"
+  echo "  $(git rev-list --count origin/main..main) commit(s) not pushed"
 fi
