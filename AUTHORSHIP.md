@@ -43,6 +43,19 @@ byte-identical to what existed on this date.
     DATC Paper Summer 2026.pdf        2f793553eb353802363a3ebd491ac1f56091ef7d6102ad11f1fc06a4a05afe39
     DATC Research Paper.pdf           35aee034333d3667a6838f18ab48a421193bf5dfd55322803a4aa43f6e14d567
 
+## Cryptographic timestamps
+
+`timestamp.sh` builds `timestamps/MANIFEST.txt` — every DATC file on the
+machine with its creation date, size and SHA-256 — and anchors that manifest
+into the Bitcoin blockchain via OpenTimestamps. One proof covers every file,
+and nothing is published: only the hashes leave the machine.
+
+    ots verify timestamps/MANIFEST.txt.ots -f timestamps/MANIFEST.txt
+
+Unlike file dates, this cannot be back-dated. The blockchain fixes when the
+hash was submitted, and the hash could only have been produced by files that
+already existed.
+
 ## What each kind of evidence is worth
 
 **Verifiable by a third party.** The Internet Archive captured the live site at
