@@ -18,10 +18,18 @@ evidence that rests on my own machine.
 | 2026-08-15 | DATC Paper Summer 2026 (PDF) | The research paper. |
 | 2026-08-22 | datc-drones.in published | Public launch. |
 
-Earlier still, and predating all files here: the PYPx reforestation project and
-the MYP2 (Grade 7) illegal-logging project. Both were blocked by drone
-regulation, and both are what led to DATC. Those were submitted through school
-and carry institutional dates.
+### Earlier school work, held on the school's systems
+
+These predate everything above and are the origin of the idea. They carry
+institutional timestamps I did not set.
+
+| Date | Work | Significance |
+|---|---|---|
+| 2023-05-12 | *Forever Greens* (PYPx, Grade 5S) | Reforestation. A seed-planting rover, ~400 seeds a minute. Microsoft version history records the author as "Vihaan Mittal (Student - Pathways School Gurgaon)" at 18:57 on this date. |
+| 2023-24 | *Innovations Process Journal* (MYP-2, I&S PBL) | ForestGuard XR AI: a LiDAR and AI-camera drone against illegal logging, with CAD drawings and build photos. Filed under `PSG MYP 2023-24/ I&S PBL/Alka Singh/ MYP-2`. |
+| 2023-24 | MYP-2 product presentation | States the drone "can detect suspicious logging activity in real time and send alerts to forest rangers/authorities" - the authority-notification idea that became DATC. |
+
+Both projects ran into drone regulation, which is what led to DATC.
 
 ## Content hashes
 

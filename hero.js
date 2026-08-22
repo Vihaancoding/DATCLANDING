@@ -650,7 +650,7 @@ if (canvas && hero && !reduce.matches) {
   const section = document.getElementById('question');
   if (!section) return;
   const steps = [...section.querySelectorAll('.fork .role'),
-    section.querySelector('.candidates'), section.querySelector('.asking')].filter(Boolean);
+    ...section.querySelectorAll('.candidates'), section.querySelector('.asking')].filter(Boolean);
   if (!steps.length) return;
 
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -658,7 +658,7 @@ if (canvas && hero && !reduce.matches) {
     return;
   }
 
-  const AT = [0.18, 0.29, 0.42, 0.55];
+  const AT = [0.16, 0.26, 0.38, 0.50, 0.62];
   let queued = false;
 
   function paint() {
