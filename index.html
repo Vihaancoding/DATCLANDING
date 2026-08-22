@@ -64,7 +64,7 @@
 
 <main id="top">
 
-  <!-- ══ 1. HERO — three beats ══ -->
+  <!-- 1. HERO - three beats -->
   <section class="hero" id="hero">
     <a class="hero-skip" href="#gap">Skip the intro</a>
     <div class="hero-stage">
@@ -103,7 +103,7 @@
     </div>
   </section>
 
-  <!-- ══ 2. THE GAP ══ -->
+  <!-- 2. THE GAP -->
   <section class="section" id="gap">
     <div class="container">
       <p class="section-label"><i>01</i>Where drones stall today</p>
@@ -140,7 +140,7 @@
     </div>
   </section>
 
-  <!-- ══ 3. THE PRECEDENT — pinned scroll sequence ══ -->
+  <!-- 3. THE PRECEDENT - pinned scroll sequence -->
   <section class="section-steel precedent" id="precedent">
     <div class="precedent-stage">
       <div class="container">
@@ -237,7 +237,7 @@
     </div>
   </section>
 
-  <!-- ══ 4. WHAT DATC IS — orientation ══ -->
+  <!-- 4. WHAT DATC IS - orientation -->
   <section class="section whatis" id="whatis">
     <div class="container">
       <p class="section-label"><i>03</i>What DATC actually is</p>
@@ -264,7 +264,7 @@
     </div>
   </section>
 
-  <!-- ══ 4. THE APPROACH ══ -->
+  <!-- 4. THE APPROACH -->
   <section class="section" id="approach">
     <div class="container">
       <p class="section-label"><i>04</i>How it works, in three parts</p>
@@ -297,7 +297,7 @@
     </div>
   </section>
 
-  <!-- ══ 5. WHAT'S BUILT ══ -->
+  <!-- 5. WHAT'S BUILT -->
   <section class="section" id="status">
     <div class="container">
       <p class="section-label"><i>05</i>Built, and not built</p>
@@ -369,59 +369,51 @@
     </div>
   </section>
 
-  <!-- ══ 6. THE OPEN PROBLEM — the actual ask ══ -->
-  <section class="section section-highlight" id="question">
+  <!-- 6. THE OPEN PROBLEM -->
+  <section class="section" id="question">
     <div class="container">
-      <p class="section-label"><i>06</i>The problem I can't solve</p>
-      <h2>A verification system with no safe way to fail.</h2>
+      <p class="section-label"><i>06</i>The problem I can't solve alone</p>
+      <h2>If the link drops mid-flight, what should the system do?</h2>
 
-      <div class="prose">
-        <p>
-          All of this depends on a live cellular link. When that link drops — and in
-          India it drops constantly — there are two things the system can do, and both
-          of them are wrong.
-        </p>
+      <p class="prose">
+        All of it needs a live connection. Lose one over rural India and the system
+        has to choose, in the air, between two bad answers.
+      </p>
+
+      <ol class="role-flow fork">
+        <li class="role">
+          <span class="role-tag">Fails open</span>
+          <p>Keeps flying. An aircraft nobody can verify stays airborne.</p>
+          <span class="pill pill-planned">Defeats the purpose</span>
+        </li>
+        <li class="role">
+          <span class="role-tag">Fails closed</span>
+          <p>Gets grounded. A licensed operator loses a flight to bad coverage.</p>
+          <span class="pill pill-planned">Repeats the original problem</span>
+        </li>
+      </ol>
+
+      <div class="candidates">
+        <p class="section-label">What I've considered</p>
+        <ul>
+          <li>Signed authorisation cached on the module, valid for a bounded window</li>
+          <li>Degraded mode with a tighter geofence</li>
+          <li>Store-and-forward log, reconciled on reconnect</li>
+          <li>A fallback radio link — none is built yet, Wi-Fi is as far as it goes</li>
+        </ul>
       </div>
 
-      <div class="fork">
-        <div class="fork-side">
-          <span class="fork-tag">Fail open</span>
-          <p>
-            The drone keeps flying, unverified. Then anyone who wants to avoid
-            verification just flies where there is no coverage, or jams the link.
-            A system defeated by a dead zone is not a verification system.
-          </p>
-        </div>
-        <div class="fork-side">
-          <span class="fork-tag">Fail closed</span>
-          <p>
-            The drone grounds itself. Then a network outage grounds lawful flights,
-            and no operator or regulator will accept infrastructure that turns a
-            dropped signal into a grounded fleet.
-          </p>
-        </div>
-      </div>
-
-      <div class="prose">
+      <div class="asking">
+        <h3>What would help</h3>
         <p>
-          And the geography is the worst part. Reforestation, anti-logging patrols,
-          crop surveys, disaster response — the work that most needs drones happens
-          exactly where cellular coverage is weakest. It works best where it's needed least.
-        </p>
-        <p>
-          I don't know the answer. A cached authorization valid for a bounded window?
-          A store-and-forward log that reconciles on reconnect? Something that doesn't
-          depend on the network at all?
-        </p>
-        <p>
-          If you've built real-time systems over unreliable links, or worked on drone
-          comms, that's the conversation I'm looking for.
+          If you've built systems that keep working when the network doesn't, I'd like
+          to know what broke and what you'd never do again.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ══ 7. THE ASK ══ -->
+  <!-- 7. THE ASK -->
   <section class="section contact-section" id="contact">
     <div class="container">
       <p class="section-label"><i>07</i>The ask</p>

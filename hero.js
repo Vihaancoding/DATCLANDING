@@ -25,11 +25,9 @@ if (canvas && hero && !reduce.matches) {
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 400);
   scene.fog = new THREE.Fog(0x141118, 22, 70);
 
-  // ── Environment: one file doing sky, skyline, lighting and reflections ──
+  // Environment: one file doing sky, skyline, lighting and reflections
   const pmrem = new THREE.PMREMGenerator(renderer);
-  // 1K is plenty for image-based lighting, which is what this file is really
-  // for. A tonemapped JPG will take over as the *visible* background — this
-  // carries both jobs until then, so the sky reads a little softer for now.
+  // 1K is plenty for image-based lighting, which is what this file is really.
   new EXRLoader().load('public/models/city-light.exr', (tex) => {
     tex.mapping = THREE.EquirectangularReflectionMapping;
     scene.environment = pmrem.fromEquirectangular(tex).texture;
@@ -51,15 +49,21 @@ if (canvas && hero && !reduce.matches) {
   const world = new THREE.Group();
   scene.add(world);
 
-  // ── The aircraft ──
-  // Where the nose points, in radians. 0 = toward the camera, Math.PI = away,
-  // -Math.PI/2 = to the left (the way it travels), Math.PI/2 = to the right.
-  // The +0.4 turns it off pure profile into a three-quarter view.
-  const FACE = -Math.PI / 2 + 0.4;
-  let noseYaw = 0;
+  // The aircraft.
+  // The nose turns to face the copy: left while the text is left, right once it
+  // has swapped. The gimbal camera is on the nose, so it tracks the reader.
+  const FACE_START = -Math.PI / 2 + 0.4;
+  const FACE_END   =  Math.PI / 2 - 0.4;
+  let modelHeading = 0;
   let droneBase = new THREE.Vector3();
   const tagPos = new THREE.Vector3();
   let droneRadius = 2;
+  // Left edge of the copy column, so the aircraft can be sized to what is left.
+  function copyLeftPx() {
+    const f = frames.find(el => +el.style.opacity > 0.5) || frames[frames.length - 1];
+    const line = f && f.querySelector('h1, .hero-line');
+    return line ? line.getBoundingClientRect().left : (canvas.clientWidth || 1) * 0.5;
+  }
   let drone = null;
   const rotors = [];
 
@@ -75,16 +79,13 @@ if (canvas && hero && !reduce.matches) {
     drone.scale.setScalar(s);
     drone.position.sub(centre.multiplyScalar(s));
 
-    // Four propeller groups: 桨叶1–4. Two of them sit several units from their
-    // parent's origin, so spinning them in place needs a pivot at each rotor's
-    // real centre — otherwise those two swing through an arc off the motor.
+    // Four propeller groups: 桨叶1–4. Two of them sit several units from their.
     drone.updateMatrixWorld(true);
     const props = [];
     drone.traverse((o) => { if (/^桨叶\d$/.test(o.name)) props.push(o); });
 
     droneBase = drone.position.clone();
-    // Bounding radius drives how far back the camera must sit to hit a target
-    // on-screen size, whatever the window happens to be.
+    // Bounding radius drives how far back the camera must sit to hit a target.
     droneRadius = new THREE.Box3().setFromObject(drone)
       .getBoundingSphere(new THREE.Sphere()).radius;
 
@@ -101,8 +102,7 @@ if (canvas && hero && !reduce.matches) {
       rotors.push(pivot);
     }
 
-    // Derive which way the nose points from the named front and rear motors
-    // (前 = front, 后 = rear) rather than guessing at the model's axis.
+    // Derive which way the nose points from the named front and rear motors.
     const front = new THREE.Vector3(), rear = new THREE.Vector3();
     let nf = 0, nr = 0;
     drone.traverse((o) => {
@@ -115,7 +115,7 @@ if (canvas && hero && !reduce.matches) {
       front.divideScalar(nf); rear.divideScalar(nr);
       // The model's own nose yaw, measured while its rotation is still zero.
       const heading = Math.atan2(front.x - rear.x, front.z - rear.z);
-      noseYaw = FACE - heading;
+      modelHeading = heading;
     }
 
     world.add(drone);
@@ -123,39 +123,30 @@ if (canvas && hero && !reduce.matches) {
     onScroll();
   }, undefined, (e) => console.error('drone.glb failed', e));
 
-  // ── Continuous camera path: orbit + dolly, not three stills ──
+  // Continuous camera path: orbit + dolly, not three stills
   const DEG = Math.PI / 180;
   const path = (p) => ({
-    // Portrait gets a shallower dolly as well as a wider lens: a flat pull-back
-    // fits beat A and then loses the aircraft once the camera closes in.
-    radius: (10.5 - 5.9 * p * (1 - portraitK * 0.55)) * fitBack,
+    // Portrait gets a shallower dolly as well as a wider lens: a flat pull-back.
+    // Push in through beats A and B, then back out as the aircraft crosses: at
+    // beat C the copy takes the right half, so a close drone cannot fit beside it.
+    radius: (p < 0.5
+      ? 10.5 - 5.6 * p * (1 - portraitK * 0.55)
+      : 7.7 + 3.0 * (p - 0.5) * 2) * fitBack,
     azimuth: (-26 + 34 * p) * DEG,
     elevation: (3 - 9 * p) * DEG,   // slightly below the aircraft: sky behind it, horizon low in frame
-    // Target sits left of and below the aircraft so it holds the upper right
-    // of frame at every distance, leaving the headline's third clear.
-    // The aircraft crosses the frame right to left; the copy travels the other
-    // way. One continuous move rather than three separate cards.
-    // The camera trails the aircraft rather than tracking it exactly, so the
-    // flight reads as movement through the scene instead of a static hover.
-    // On a portrait screen the copy spans the full width, so drop the aim point
-    // to lift the aircraft clear of the headline instead of behind it.
+    // Target sits left of and below the aircraft so it holds the upper right.
     target: new THREE.Vector3(
-      -2.4 + 3.8 * swap(p) * crossK,
-      // Lift the aim point through the middle of the swap so the aircraft arcs
-      // ABOVE the copy instead of crossing straight through it. Peaks halfway
-      // and returns to zero, so both ends of the sequence are unaffected.
+      -2.4 + 3.0 * swap(p) * crossK,
+      // Lift the aim point through the middle of the swap so the aircraft arcs.
       -0.9 + 0.7 * p - portraitK * 1.5 - 1.05 * Math.sin(Math.PI * swap(p)),
       -travel(p) * 0.8
     )
   });
 
-  // How far the copy can travel, 0–1. The aircraft's crossing is scaled by the
-  // same factor, so on a narrow window neither moves and they never collide.
+  // How far the copy can travel, 0–1. The aircraft's crossing is scaled by the.
   let crossK = 1;
 
-  // How far the aircraft has flown. It approaches, is stopped dead through the
-  // denial beat, then released — the halt is what carries the argument now that
-  // the barrier planes are gone.
+  // How far the aircraft has flown. It approaches, is stopped dead through the.
   function travel(p) {
     if (p < 0.30) return 6.0 * ease(p / 0.30);
     if (p < 0.60) return 6.0;
@@ -165,8 +156,7 @@ if (canvas && hero && !reduce.matches) {
   const BEATS = [[0, 0.30], [0.24, 0.64], [0.58, 1]];
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const ease  = (t) => t * t * (3 - 2 * t);
-  // The side-swap belongs to beat C. Running it earlier marched the aircraft
-  // through the headline during beat B.
+  // The side-swap belongs to beat C. Running it earlier marched the aircraft.
   const swap  = (p) => ease(clamp((p - 0.52) / 0.48, 0, 1));
 
   function weight(p, [s, e], i) {
@@ -181,8 +171,7 @@ if (canvas && hero && !reduce.matches) {
 
   let progress = 0, visible = true, running = false;
 
-  // Portrait windows crop the aircraft in half at the desktop framing, so widen
-  // the lens and stand further back the narrower the frame gets.
+  // Portrait windows crop the aircraft in half at the desktop framing, so widen.
   let fitBack = 1;
   let portraitK = 0;
   function resize() {
@@ -212,16 +201,11 @@ if (canvas && hero && !reduce.matches) {
     dots.forEach((d, i) => d.classList.toggle('on', i === lead));
 
     const e = ease(progress);
-    // Shift only into margin that actually exists, so the column can never
-    // overflow on a narrow window — on small screens it simply doesn't move.
+    // Shift only into margin that actually exists, so the column can never.
     const room = Math.min(Math.max(0, (innerWidth - 760) / 2 - 16), 280);
     crossK = room / 280;
     framesEl.style.setProperty('--tx', (swap(progress) * room).toFixed(1) + 'px');
-    // A true crossfade: the left scrim has to release as the right one arrives,
-    // otherwise both sit at full strength and crush the whole frame.
-    // The left scrim keeps a floor rather than fading to nothing: two opposing
-    // gradients at half strength leave the middle of the frame barely covered,
-    // which is exactly where the copy sits mid-swap.
+    // A true crossfade: the left scrim has to release as the right one arrives.
     const sideMix = swap(progress) * crossK;
     scrimR.style.opacity = sideMix;
     scrimL.style.opacity = 1 - 0.78 * sideMix;
@@ -243,6 +227,34 @@ if (canvas && hero && !reduce.matches) {
       c.target.z + c.radius * Math.cos(c.elevation) * Math.cos(c.azimuth)
     );
     camera.lookAt(c.target);
+    // Sliding the target also slides the camera, so it barely moves the subject.
+    // Translating after aiming is what actually shifts it across the frame.
+    // By beat C the copy owns the right of the frame, so the aircraft has to be
+    // sized to the column left of it rather than to a fixed distance. Solve for
+    // the camera distance that makes it that wide, and blend in over the swap.
+    const halfFov = camera.fov * DEG * 0.5;
+    const vw = canvas.clientWidth || 1, vh = canvas.clientHeight || 1;
+    const sw = swap(progress) * crossK;
+
+    if (drone && sw > 0.001) {
+      const avail = Math.max(200, copyLeftPx() - 56);
+      // 0.9 because the sizing works off the bounding sphere, and the rotor span
+      // projects wider than that once the aircraft turns.
+      const wantW = Math.min(avail, vw * 0.52) * 0.9;
+      const fitDist = (droneRadius * vh) / (wantW * Math.tan(halfFov));
+      const here = camera.position.distanceTo(c.target);
+      const dist = here + (Math.max(fitDist, here) - here) * sw;
+
+      const dir = camera.position.clone().sub(c.target).normalize();
+      camera.position.copy(c.target).addScaledVector(dir, dist);
+      camera.lookAt(c.target);
+
+      // Centre it in that column.
+      const worldPerPx = (2 * dist * Math.tan(halfFov)) / vh;
+      // Centre inside a left margin, not flush to the edge, so nothing clips.
+      const centre = 26 + (avail - 26) * 0.5;
+      camera.translateX((0.5 * vw - centre) * worldPerPx * sw);
+    }
 
     const cW = weight(progress, BEATS[2], 2);
 
@@ -253,49 +265,35 @@ if (canvas && hero && !reduce.matches) {
         droneBase.y + Math.sin(t * 0.0009) * 0.07,
         droneBase.z - d
       );
-      drone.rotation.y = noseYaw + e * 0.3;
+      drone.rotation.y = FACE_START + (FACE_END - FACE_START) * swap(progress) - modelHeading;
       // Pitch with acceleration: nose down under power, rearing back at the stop.
       const speed = (travel(Math.min(progress + 0.01, 1)) - travel(Math.max(progress - 0.01, 0))) / 0.02;
       drone.rotation.x = -clamp(speed, -14, 14) * 0.011;
       drone.rotation.z = Math.sin(t * 0.0006) * 0.012;
     }
-    // Each pivot inherits its motor's orientation and starts unrotated, so its
-    // local Y is the shaft. Adding to rotation.y on the rotor itself instead
-    // would recompose its mounting rotation and tear it off the motor.
+    // Each pivot inherits its motor's orientation and starts unrotated, so its.
     rotors.forEach((r, i) => r.rotateY(i % 2 ? 0.55 : -0.55));
 
-    // Pin the identity tag to the aircraft's projected screen position, so it
-    // tracks the drone as the camera moves instead of floating independently.
+    // Pin the identity tag to the aircraft's projected screen position, so it.
     if (idTag && drone) {
-      // Hold the tag back until the swap has essentially finished, so it never
-      // appears while the aircraft is still travelling across the copy.
-      // Sitting on the airframe now, so it must not appear until the aircraft
-      // has finished crossing — otherwise it arrives on top of the copy.
+      // Hold the tag back until the swap has essentially finished, so it never.
       const tagIn = cW * clamp((swap(progress) - 0.74) / 0.22, 0, 1);
-      // The camera was moved after lookAt, so its world matrix is stale until
-      // render. Projecting against it now would place the tag a frame behind
-      // and ignore the framing offset entirely.
+      // The camera was moved after lookAt, so its world matrix is stale until.
       camera.updateMatrixWorld(true);
       if (tagIn > 0.01 && portraitK > 0.5) {
-        // On a phone the aircraft sits high and part-cropped, so pinning the tag
-        // to it puts the tag off-screen. CSS parks it under the copy instead.
+        // On a phone the aircraft sits high and part-cropped, so pinning the tag.
         idTag.style.opacity = tagIn;
       } else if (tagIn > 0.01) {
         const p = drone.getWorldPosition(tagPos);
         p.project(camera);
         const x = (p.x * 0.5 + 0.5) * canvas.clientWidth;
         const y = (-p.y * 0.5 + 0.5) * canvas.clientHeight;
-        // Sit below and to the left of the aircraft: by this beat the copy has
-        // moved to the right of frame, so anything to the right would collide.
-        // Tuck it under the airframe rather than beside it: anchored to the
-        // aircraft's own projected radius, so it sits against the underside at
-        // any camera distance and never drifts onto the copy.
+        // Sit below and to the left of the aircraft: by this beat the copy has.
         const halfFov = camera.fov * DEG * 0.5;
         const distToDrone = camera.position.distanceTo(drone.position);
         const rPx = (droneRadius / Math.max(distToDrone, 0.001))
           * (canvas.clientHeight / 2) / Math.tan(halfFov);
-        // translateX(-100%) right-aligns using the tag's own rendered width, so
-        // there is no measured value to go stale.
+        // translateX(-100%) right-aligns using the tag's own rendered width, so.
         idTag.style.transform =
           `translate(${x.toFixed(1)}px, ${(y + rPx * 0.20).toFixed(1)}px)` +
           ` translateX(-100%) scale(${(0.94 + tagIn * 0.06).toFixed(3)})`;
@@ -320,11 +318,7 @@ if (canvas && hero && !reduce.matches) {
   onScroll();
 }
 
-// ── Stat figures: odometer digit reels ──
-// Every digit becomes a column of numerals clipped to one character height and
-// spun upward with transform alone. Columns further right spin through more
-// cycles and settle later, which is what reads as a reel coming to rest rather
-// than a number simply changing.
+// Odometer reels. Right-hand digits spin longer so they settle last.
 (() => {
   const section = document.getElementById('gap');
   const els = [...document.querySelectorAll('[data-count]')];
@@ -333,9 +327,7 @@ if (canvas && hero && !reduce.matches) {
   // Reduced motion keeps the figures exactly as authored in the HTML.
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // The reels start and stop right to left: the last digit goes first and the
-  // leading digit is last to rest, so the motion sweeps across rather than
-  // every column firing at once.
+  // The reels start and stop right to left: the last digit goes first and the.
   const CYCLES_BASE = 2;      // full 0–9 passes for the rightmost digit
   const DUR_BASE    = 1.05;   // seconds for the rightmost digit
   const DUR_STEP    = 0.14;   // each column to its LEFT takes this much longer
@@ -382,8 +374,7 @@ if (canvas && hero && !reduce.matches) {
     el.classList.add('odo');
     el.appendChild(frag);
 
-    // Now that the total is known, give each column its cycles counted from the
-    // right, and rebuild its strip to match.
+    // Now that the total is known, give each column its cycles counted from the.
     const n = strips.length;
     strips.forEach((s, i) => {
       const fromRight = n - 1 - i;
@@ -433,7 +424,7 @@ if (canvas && hero && !reduce.matches) {
   io.observe(section);
 })();
 
-// ── Nav: mark the section currently being read ──
+// Nav: mark the section currently being read
 (() => {
   const links = [...document.querySelectorAll('.nav-links a[data-spy]')];
   if (!links.length) return;
@@ -463,10 +454,7 @@ if (canvas && hero && !reduce.matches) {
   paint();
 })();
 
-// ── 3. Precedent: pinned scroll sequence ──
-// The section holds while the diagram earns its argument: radar first, then the
-// aircraft broadcasting its own verified position, then the four-step chain that
-// is the actual thing being borrowed from aviation.
+// Precedent: pinned three-act sequence.
 (() => {
   const section = document.getElementById('precedent');
   if (!section) return;
@@ -498,13 +486,7 @@ if (canvas && hero && !reduce.matches) {
   let queued = false, visible = true;
   let radarOn = 1, planeX = START_X, spinning = false, lastBlip = -1e9;
 
-  // The sweep runs on its own clock rather than on scroll position: a radar that
-  // only turns while you happen to be scrolling doesn't read as a radar. The
-  // return flashes when the beam actually crosses the aircraft's bearing, which
-  // is the point being made — radar gives you an intermittent, anonymous echo.
-  // Kept above the horizon: past -180 the beam drops under the ground line and
-  // reads as a shadow. The aircraft's bearing sits between roughly -172 and
-  // -156, so this range still passes over it twice a sweep.
+  // The sweep runs on its own clock rather than on scroll position: a radar that.
   const SWEEP_FROM = -176, SWEEP_TO = -110, SWEEP_MS = 3400;
 
   function sweepTick(t) {
@@ -550,8 +532,7 @@ if (canvas && hero && !reduce.matches) {
     signal.setAttribute('transform', `translate(${x.toFixed(1)} ${FLY_Y})`);
     unknown.setAttribute('transform', `translate(${x.toFixed(1)} ${(FLY_Y - 44).toFixed(1)})`);
 
-    // Act one: radar, and an aircraft that cannot say who it is. Kept short —
-    // the scan makes its point quickly and then has to give way.
+    // Act one: radar, and an aircraft that cannot say who it is. Kept short -.
     radarOn = 1 - span(p, 0.15, 0.26);
     radar.style.opacity = radarOn * 0.95;
     unknown.style.opacity = radarOn;
@@ -582,10 +563,7 @@ if (canvas && hero && !reduce.matches) {
   paint();
 })();
 
-// ── List reveals ──
-// Rows arrive from alternating sides as they come into view. Direction lives in
-// CSS so the markup stays clean; this only decides when, and adds a short
-// stagger so a run of rows reads as a cascade rather than one block.
+// List reveals. Direction is set in CSS; this only decides when.
 (() => {
   const rows = [...document.querySelectorAll('.mech-step, .status-row')];
   if (!rows.length) return;
@@ -595,9 +573,7 @@ if (canvas && hero && !reduce.matches) {
     return;
   }
 
-  // A thin trigger band near the lower third of the viewport. Only the row
-  // actually crossing that line fires, so rows arrive one at a time as they are
-  // scrolled to — no stagger, which would still have several moving at once.
+  // A thin trigger band near the lower third of the viewport. Only the row.
   const io = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue;
@@ -609,10 +585,7 @@ if (canvas && hero && !reduce.matches) {
   rows.forEach(r => io.observe(r));
 })();
 
-// ── 4. What DATC is: the three roles arrive in order ──
-// Side by side on a wide screen, so a viewport trigger would fire all three at
-// once. Driven off the section's own scroll progress instead, which keeps the
-// rule that only one thing moves at a time and matches the reading order.
+// Roles are side by side, so use scroll progress not a viewport trigger.
 (() => {
   const section = document.getElementById('whatis');
   if (!section) return;
@@ -630,8 +603,7 @@ if (canvas && hero && !reduce.matches) {
   function paint() {
     queued = false;
     const r = section.getBoundingClientRect();
-    // 0 as the section's top reaches the bottom of the viewport, 1 once its top
-    // has climbed past the top of the viewport.
+    // 0 as the section's top reaches the bottom of the viewport, 1 once its top.
     const p = (innerHeight - r.top) / (innerHeight + r.height);
     roles.forEach((el, i) => el.classList.toggle('in', p >= AT[i]));
   }
@@ -643,9 +615,7 @@ if (canvas && hero && !reduce.matches) {
   paint();
 })();
 
-// ── Contact: copy the address ──
-// A mailto: link does nothing at all on a machine with no mail client set up,
-// which is a silent failure on the one action the whole page is asking for.
+// mailto silently fails without a mail client, so offer a copy fallback.
 (() => {
   const btn = document.querySelector('.copy-mail');
   if (!btn) return;
@@ -659,8 +629,7 @@ if (canvas && hero && !reduce.matches) {
       await navigator.clipboard.writeText(mail);
       label.textContent = 'Copied';
     } catch {
-      // Clipboard blocked (insecure context, or denied): select it instead so
-      // the reader can copy by hand rather than being left with nothing.
+      // Clipboard blocked (insecure context, or denied): select it instead so.
       const r = document.createRange();
       r.selectNodeContents(label);
       const sel = getSelection();
@@ -674,4 +643,34 @@ if (canvas && hero && !reduce.matches) {
       btn.classList.remove('copied');
     }, 1600);
   });
+})();
+
+// Side by side, so use scroll progress not a viewport trigger.
+(() => {
+  const section = document.getElementById('question');
+  if (!section) return;
+  const steps = [...section.querySelectorAll('.fork .role'),
+    section.querySelector('.candidates'), section.querySelector('.asking')].filter(Boolean);
+  if (!steps.length) return;
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    steps.forEach(el => el.classList.add('in'));
+    return;
+  }
+
+  const AT = [0.18, 0.29, 0.42, 0.55];
+  let queued = false;
+
+  function paint() {
+    queued = false;
+    const r = section.getBoundingClientRect();
+    const p = (innerHeight - r.top) / (innerHeight + r.height);
+    steps.forEach((el, i) => el.classList.toggle('in', p >= (AT[i] ?? 0.5)));
+  }
+
+  addEventListener('scroll', () => {
+    if (!queued) { queued = true; requestAnimationFrame(paint); }
+  }, { passive: true });
+  addEventListener('resize', paint);
+  paint();
 })();

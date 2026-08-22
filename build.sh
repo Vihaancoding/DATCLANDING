@@ -3,9 +3,16 @@
 # docs, the dev server and source assets, none of which belong on a public site.
 set -e
 cd "$(dirname "$0")"
+# Preserve the Vercel project link across rebuilds. Deleting it silently
+# orphans the folder, and the next deploy creates a NEW project named after the
+# directory instead of updating the real one.
+LINK=$(mktemp -d)
+[ -d dist/.vercel ] && cp -R dist/.vercel "$LINK/" || true
 rm -rf dist && mkdir -p dist/public/models
+[ -d "$LINK/.vercel" ] && cp -R "$LINK/.vercel" dist/ || true
+rm -rf "$LINK"
 
-cp index.html styles.css hero.js dist/
+cp index.html styles.css hero.js vercel.json dist/
 cp public/og.jpg public/favicon-32.png public/apple-touch-icon.png dist/public/
 cp public/logo-mark.png public/logo-lockup.png dist/public/
 cp public/shot-dashboard.jpg public/shot-registration.jpg dist/public/

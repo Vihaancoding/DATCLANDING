@@ -1,7 +1,4 @@
-/* ══════════════════════════════════════════════════════════════
-   DATC — structure pass. No motion; see PLAN.md §10.
-   Palette and type are locked (PLAN.md §6, §7).
-   ══════════════════════════════════════════════════════════════ */
+/* DATC. Palette and type are locked; see PLAN.md sections 6 and 7. */
 
 :root {
   --bg:        #0B0D10;
@@ -64,7 +61,7 @@ a  { color: inherit; }
 }
 .section-steel .section-label i { border-right-color: rgba(11,13,16,0.16); }
 
-/* ── Header: centred translucent bar ── */
+/* Header: centred translucent bar */
 .site-header {
   position: fixed; inset: 12px 0 auto 0; z-index: 50;
   display: flex; justify-content: center;
@@ -94,8 +91,7 @@ a  { color: inherit; }
   letter-spacing: 0.24em; font-size: 0.9375rem;
   text-decoration: none; color: var(--text); white-space: nowrap;
 }
-/* Sized to the cap height of the lettering beside it, not the line box, so the
-   two sit on one optical line. */
+/* Matched to cap height, not the line box. */
 .wordmark-mark { height: 0.78em; width: auto; display: block; }
 
 .nav-links {
@@ -143,7 +139,7 @@ a  { color: inherit; }
 .nav-go:hover { background: #4A8DFF; }
 .nav-icon:active, .nav-go:active { transform: scale(0.94); }
 
-/* ── 1. Hero — pinned 3D mode (JS only) ── */
+/* 1. Hero - pinned 3D mode (JS only) */
 .js .hero { height: 260vh; }
 .js .hero-stage {
   position: sticky; top: 0; height: 100svh;
@@ -155,8 +151,7 @@ a  { color: inherit; }
 }
 .js .hero-canvas.is-ready { opacity: 1; }
 .js .hero-scrim { position: absolute; inset: 0; pointer-events: none; }
-/* Two scrims crossfade as the text crosses the frame, so the copy always sits
-   on the darkened side. */
+/* Two scrims crossfade so the copy always sits on the darker side. */
 .js .scrim-l {
   background:
     linear-gradient(to right, rgba(11,13,16,0.94) 0%, rgba(11,13,16,0.86) 34%, rgba(11,13,16,0.52) 58%, rgba(11,13,16,0) 84%),
@@ -192,9 +187,7 @@ a  { color: inherit; }
 }
 .hero-skip:focus-visible { opacity: 1; pointer-events: auto; }
 
-/* Identity tag: pinned to the aircraft's projected screen position in beat C.
-   This is the resolution beat's payload — the page argues for verification, so
-   what arrives is proof of identity, not a piece of hardware. */
+/* Identity tag: pinned to the aircraft's projected screen position in beat C. */
 .id-tag {
   position: absolute; top: 0; left: 0;
   display: none;
@@ -230,9 +223,6 @@ a  { color: inherit; }
   position: absolute; left: 50%; bottom: 40px; transform: translateX(-50%);
   display: flex; gap: 6px;
 }
-/* Identity tag: pinned to the aircraft's projected screen position in beat C.
-   This is the resolution beat's payload — the page argues for verification, so
-   what arrives is proof of identity, not a piece of hardware. */
 .hero-progress span { width: 26px; height: 2px; background: var(--line); transition: background 0.4s ease; }
 .hero-progress span.on { background: var(--identity); }
 
@@ -245,9 +235,7 @@ a  { color: inherit; }
   .js .hero-frame + .hero-frame { margin-top: var(--sp-6); }
 }
 
-/* ── 1. Hero — stacked fallback ──
-   Structure pass: three stacked readable frames. This doubles as the
-   permanent no-WebGL / reduced-motion state, so it isn't throwaway. */
+/* 1. Hero, stacked fallback */
 .hero-frames { padding: 168px 0 var(--sp-6); }
 .hero-frame {
   max-width: 780px; margin: 0 auto; padding: 0 var(--sp-3);
@@ -270,7 +258,7 @@ a  { color: inherit; }
 }
 .hero-mech i { color: var(--identity); font-style: normal; margin: 0 0.55em; }
 
-/* ── Sections ── */
+/* Sections */
 .section { padding: var(--sp-6) 0; border-top: 1px solid var(--line); }
 .section .section-label { display: block; margin-bottom: var(--sp-3); }
 .section h2 { margin-bottom: var(--sp-3); }
@@ -293,7 +281,7 @@ a  { color: inherit; }
 
 .section-highlight { background: var(--surface); }
 
-/* ── 2. The gap ── */
+/* 2. The gap */
 .stat-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--sp-4); margin-bottom: var(--sp-3);
@@ -304,8 +292,7 @@ a  { color: inherit; }
   letter-spacing: -0.04em; line-height: 1;
   font-variant-numeric: tabular-nums;
 }
-/* Odometer reels. Each column is clipped to exactly one character height, so
-   translateY in whole em units lands precisely on a numeral. */
+/* Odometer reels. One digit per clipped column. */
 .odo { display: inline-flex; align-items: flex-start; }
 .odo-fixed { display: inline-block; line-height: 1; }
 .odo-reel {
@@ -328,7 +315,7 @@ a  { color: inherit; }
   border-bottom: 1px solid var(--line);
 }
 
-/* ── 3. Precedent — pinned scroll sequence (pin 2 of 2) ── */
+/* 3. Precedent - pinned scroll sequence (pin 2 of 2) */
 .precedent { border-top: none; }
 .js .precedent { height: 205vh; }
 .precedent-stage { padding: var(--sp-6) 0; }
@@ -417,10 +404,7 @@ a  { color: inherit; }
   .pr-chain li { opacity: 1; transform: none; color: var(--steel-ink); }
 }
 
-/* ── 4. What DATC is — orientation ──
-   Three actors on one line, DATC in the middle. Built from type and rules
-   rather than an illustration: the reader should grasp the shape of it in a
-   glance, and the shape is "who talks to whom". */
+/* 4. What DATC is */
 .role-flow {
   display: grid; gap: var(--sp-3);
   list-style: none; margin: var(--sp-5) 0 0; padding: 0;
@@ -481,7 +465,7 @@ a  { color: inherit; }
   }
 }
 
-/* ── 4. Approach ── */
+/* 4. Approach */
 .mech-list { list-style: none; margin: var(--sp-5) 0 0; padding: 0; overflow: hidden; }
 .mech-step {
   display: grid; grid-template-columns: 48px 1fr; gap: var(--sp-2);
@@ -490,9 +474,7 @@ a  { color: inherit; }
 .mech-index { font-family: var(--mono); font-size: 0.8125rem; color: var(--identity); letter-spacing: 0.1em; }
 .mech-step p { color: var(--muted); font-size: 0.9375rem; margin-top: 6px; }
 
-/* ── List reveals ──
-   Rows alternate the side they arrive from. The offset is kept modest and the
-   lists clip their own overflow, so nothing can push the page sideways. */
+/* List reveals, alternating sides */
 .js .mech-step,
 .js .status-row {
   opacity: 0;
@@ -510,7 +492,7 @@ a  { color: inherit; }
   .js .status-row { opacity: 1; transform: none; transition: none; }
 }
 
-/* ── 5. Evidence: screenshots of what actually runs ── */
+/* 5. Evidence: screenshots of what actually runs */
 .evidence {
   display: grid; gap: var(--sp-3);
   margin: var(--sp-5) 0 var(--sp-5);
@@ -540,7 +522,7 @@ a  { color: inherit; }
 .limits p + p { margin-top: var(--sp-2); }
 .limits strong { color: var(--text); font-weight: 600; }
 
-/* ── 5. Status ── */
+/* 5. Status */
 .status-list { overflow: hidden; }
 .status-row {
   display: grid; grid-template-columns: 112px 1fr; gap: var(--sp-2);
@@ -557,7 +539,83 @@ a  { color: inherit; }
 .pill-planned { color: var(--muted); }
 .status-text p { color: var(--muted); font-size: 0.9375rem; margin-top: 6px; }
 
-/* ── 7. Close ── */
+/* 6. The open problem */
+.fork { grid-template-columns: 1fr; }
+.fork .role { display: flex; flex-direction: column; }
+.fork .role p { flex: 1; }
+/* The verdict, in the same pill the status list uses. */
+.fork .pill { margin-top: var(--sp-3); align-self: flex-start; }
+
+.candidates { margin-top: var(--sp-5); max-width: 62ch; }
+.candidates .section-label { display: block; margin-bottom: var(--sp-2); }
+.candidates ul { list-style: none; margin: 0; padding: 0; }
+.candidates li {
+  padding: 12px 0 12px 22px;
+  border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 0.9375rem;
+  position: relative;
+}
+/* Marker in the accent, matching the section numbers. */
+.candidates li::before {
+  content: ''; position: absolute; left: 0; top: 1.25em;
+  width: 10px; height: 1px; background: var(--identity);
+}
+
+.asking {
+  margin-top: var(--sp-5); padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  max-width: 62ch;
+}
+.asking h3 { margin-bottom: var(--sp-2); }
+.asking p { color: var(--muted); }
+
+.js .candidates { margin-top: var(--sp-5); max-width: 62ch; }
+.candidates .section-label { display: block; margin-bottom: var(--sp-2); }
+.candidates ul { list-style: none; margin: 0; padding: 0; }
+.candidates li {
+  padding: 12px 0 12px 22px;
+  border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 0.9375rem;
+  position: relative;
+}
+/* Marker in the accent, matching the section numbers. */
+.candidates li::before {
+  content: ''; position: absolute; left: 0; top: 1.25em;
+  width: 10px; height: 1px; background: var(--identity);
+}
+
+.asking { opacity: 0; transform: translateY(16px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+.js .candidates.in, .js .asking.in { opacity: 1; transform: none; }
+
+@media (min-width: 860px) {
+  .fork { grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+  /* A fork is a split, not a chain - suppress the role-flow arrow. */
+  .fork .role + .role::before,
+  .fork .role + .role::after { content: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .candidates { margin-top: var(--sp-5); max-width: 62ch; }
+.candidates .section-label { display: block; margin-bottom: var(--sp-2); }
+.candidates ul { list-style: none; margin: 0; padding: 0; }
+.candidates li {
+  padding: 12px 0 12px 22px;
+  border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 0.9375rem;
+  position: relative;
+}
+/* Marker in the accent, matching the section numbers. */
+.candidates li::before {
+  content: ''; position: absolute; left: 0; top: 1.25em;
+  width: 10px; height: 1px; background: var(--identity);
+}
+
+.asking { opacity: 1; transform: none; }
+}
+
+/* 7. Close */
 .cta-button {
   display: inline-flex; align-items: center; min-height: 48px;
   margin-top: var(--sp-4); padding: 0 28px;
@@ -599,8 +657,7 @@ a  { color: inherit; }
 
   .js .hero { height: 190vh; }
 
-  /* The copy runs the full width here, so the side-to-side scrim does nothing.
-     Darken top and bottom instead, where the text actually sits. */
+  /* The copy runs the full width here, so the side-to-side scrim does nothing. */
   .js .scrim-l, .js .scrim-r {
     background:
       linear-gradient(to bottom,

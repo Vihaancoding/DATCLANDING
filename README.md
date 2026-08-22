@@ -63,7 +63,7 @@ This repository exists partly as a dated record of the work.
 | Evidence | Date |
 |---|---|
 | [Internet Archive snapshot](https://web.archive.org/web/20260822102403/https://datc-drones.in/) | 22 Aug 2026 |
-| `paper/DATC Paper Summer 2026.pdf` — the written research, predates the site | Summer 2026 |
+| `DATC Paper Summer 2026.pdf` — the written research, predates the site (held separately, hash in AUTHORSHIP.md) | Summer 2026 |
 | [AUTHORSHIP.md](AUTHORSHIP.md) — SHA-256 hashes of every published file | 22 Aug 2026 |
 | Commit history in this repository | from 22 Aug 2026 |
 
@@ -81,7 +81,6 @@ build.sh        assembles a clean dist/ for deployment
 devserver.py    local development server
 PLAN.md         design plan and the reasoning behind each decision
 COPY.md         every word on the page, and why
-paper/          the underlying research
 ```
 
 ## Credits
