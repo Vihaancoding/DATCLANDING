@@ -1,48 +1,58 @@
 # DATC — Record of Authorship
 
-Generated 2026-08-22 15:01:18 UTC.
+Vihaan Mittal. Compiled 2026-08-22.
 
-## Independent timestamp
+This records when the DATC idea was developed and what evidence supports each
+date. It distinguishes between evidence that a third party can verify and
+evidence that rests on my own machine.
 
-The Internet Archive captured the live site. A third party recorded it at a
-fixed time and that record cannot be altered afterwards, including by me.
+## Timeline
+
+| Date | Artefact | Significance |
+|---|---|---|
+| 2026-01-12 | `Datc.ino` — ESP8266 firmware | Earliest dated artefact. Already named DATC, and already contains `AUTHORITY_URL`: a drone reporting to an authority platform. The core architecture, seven months before the site. |
+| 2026-01-18 | `datc_esp32_cc_gps` | GPS added to the companion computer. |
+| 2026-06-30 | `datc-prototype-backup.zip` | Full prototype snapshot. |
+| 2026-07-13 | Drone Infrastructure Design Summary | The eight-scene narrative for the system. |
+| 2026-07-19 | Digital Airspace Drone System (PDF) | Written system description. |
+| 2026-08-15 | DATC Paper Summer 2026 (PDF) | The research paper. |
+| 2026-08-22 | datc-drones.in published | Public launch. |
+
+Earlier still, and predating all files here: the PYPx reforestation project and
+the MYP2 (Grade 7) illegal-logging project. Both were blocked by drone
+regulation, and both are what led to DATC. Those were submitted through school
+and carry institutional dates.
+
+## Content hashes
+
+Any later copy can be compared against these. A match proves the file is
+byte-identical to what existed on this date.
+
+    Datc.ino                          91eb6cd39ed4fdc3b8556c5efe2b5c6dd57375f20443fabae69f99e7e13fa388
+    datc_cc_esp8266.ino               4db92367e2c6dc7cd777fb79320de6c824308f244e6176816e8c799323e11050
+    datc-prototype-backup.zip         7f38e234c4143261e0106332edd407ff32f6e76a064c2a9783968d91d0a9df8a
+    Digital Airspace Drone System.pdf 2dbc5ed26422cf8ef52d076267c2a8d60afede0f1ab73603a42fe41293fd2e1f
+    DATC Paper Summer 2026.pdf        2f793553eb353802363a3ebd491ac1f56091ef7d6102ad11f1fc06a4a05afe39
+    DATC Research Paper.pdf           35aee034333d3667a6838f18ab48a421193bf5dfd55322803a4aa43f6e14d567
+
+## What each kind of evidence is worth
+
+**Verifiable by a third party.** The Internet Archive captured the live site at
+2026-08-22 10:24:03 UTC. Neither I nor anyone else can alter that record.
 
     https://web.archive.org/web/20260822102403/https://datc-drones.in/
-    Captured 2026-08-22 10:24:03 UTC
 
-## Live site
+**Self-attested.** The file dates above come from my own computer and can be
+changed by anyone with access to it. They are consistent and detailed, which
+makes them credible, but on their own they are not proof.
 
-    https://datc-drones.in
-    Domain datc-drones.in, registered to the author.
+**Institutional.** The school submissions for PYPx and MYP2, and any dated
+correspondence, are held by third parties and carry far more weight than
+anything on this machine.
 
-## Prior work
+## Honest limits
 
-A written research paper, DATC Paper Summer 2026, predates this site and
-describes the same system. It is held separately by the author and is not
-included in this repository, so no content hash for it is recorded here.
-
-The figures from that paper ARE published on the site and hashed below:
-shot-dashboard.jpg and shot-registration.jpg are the authority approval
-dashboard and the registration form as they appear in the paper.
-
-## Published file hashes
-
-Any later copy can be compared against these.
-
-    .vercel/README.txt                     f5d1ed0f5032ae128931f46459b5faa1af6319fc2dfb3e7a5fe54a84bf93dbd6
-    .vercel/project.json                   8aba1054df09e7595a9005c8448b88ff971e82f8f7dd1be150a230df89ea9368
-    hero.js                                6e79580a2dd566bca45fbc1dcc885a61424896079baf22eb554828d87f3e4ce9
-    index.html                             297418764dfdd2fb2f070dffab87194d6030b8c48b48e9d0c0ab67be6ca9b62a
-    public/apple-touch-icon.png            a0dc8cd1ccc19a7a438ef7fade4130725db8ed14bcef2d1217051c318e50c04e
-    public/favicon-32.png                  62c6d8ec90c360e5bade8cab55d11af55ba72c5ae52189ecce438e976154692b
-    public/logo-lockup.png                 d53097deef6e444782d32d9e9a3da4768499424e6f78a0bcab88db31a1d14088
-    public/logo-mark.png                   8c600794ebe14d697932dee8f73aa819623fed5dd05e0dcf453bb0b337b0d7fe
-    public/models/city-light.exr           d05e42da7380c9317b507cee4ec1164602183202ba4d943836d71dcabb65b62e
-    public/models/drone.glb                3742278d14b29f6aa5a8d0d66fe4e2312a58deab50c4ec541902f93c7b544814
-    public/og.jpg                          d90c0723d4c70124e48d946dad0029f7848f900c78de62763509434f9cf198cd
-    public/shot-dashboard.jpg              98ea253ba9ed53ddb164762b28a4945064cdb276e7367fea60591b767fe8e0f6
-    public/shot-registration.jpg           8a738d6a65efc42d2c4eb070f12c3fe1ed21c92376cffe718f76c19985b2342b
-    robots.txt                             2eb4120e06ee15b2a4ea8c58f456cac82725005ce1d5271c39620d63b00b7008
-    sitemap.xml                            90536d7dd7275e30a0a1d21ffabccde8c3dc71de45823a0e0fcd17daa919416a
-    styles.css                             ab434fd59eacfc77d4e1ee06698dc7042bc37eb3e09bcb72db55e87c9e50d215
-    vercel.json                            340aec39882bf75e1a03eeba96e5fec920e0031d7ab1cfc0cc75343abf81125e
+This shows the idea existed and was being built by January 2026. It cannot show
+that nobody else thought of something similar earlier, and no record can.
+Copyright protects the expression — this code, this paper, this site — and is
+automatic. It does not protect the underlying concept.
