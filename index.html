@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DATC — Can authorities trust what's in the sky?</title>
+<title>DATC — Drone Authorization, Tracking &amp; Compliance</title>
+<meta name="keywords" content="DATC, drone, drone identity, drone authorization, remote ID, UAV compliance, airspace, DGCA">
 <meta name="description" content="Drones can already do the work. What stops them is that no authority can check, in real time, whose drone that is. DATC is an early-stage attempt at that layer — and an honest account of how far it has got.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +31,23 @@
     "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
     "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
 } }
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchProject",
+  "name": "DATC — Drone Authorization, Tracking and Compliance",
+  "alternateName": "DATC",
+  "url": "https://datc-drones.in/",
+  "description": "A student research project proposing a trust layer between drone operators and aviation authorities, so an authority can verify in real time whose drone is in the air and whether it is cleared to be there.",
+  "keywords": "drone identity, drone authorization, remote ID, UAV compliance, airspace management",
+  "founder": {
+    "@type": "Person",
+    "name": "Vihaan Mittal",
+    "affiliation": { "@type": "School", "name": "Pathways School Gurgaon" }
+  },
+  "sameAs": ["https://github.com/Vihaancoding/DATCLANDING"]
+}
 </script>
 </head>
 <body>
@@ -307,12 +325,12 @@
         <figure class="shot">
           <img src="public/shot-dashboard.jpg" loading="lazy" width="1372" height="892"
                alt="The authority approval dashboard: a pending registration showing computed thrust margin, endurance rating, payload utilization and wind risk, with structured denial reasons and approve or deny actions.">
-          <figcaption>The authority dashboard. Safety metrics are computed from the submitted specification; denials carry a structured reason.</figcaption>
+          <figcaption>The authority dashboard.</figcaption>
         </figure>
         <figure class="shot">
           <img src="public/shot-registration.jpg" loading="lazy" width="1100" height="871"
                alt="The drone registration form, collecting takeoff weight, payload, motor thrust, motor count, battery capacity, cruise power and wind tolerance.">
-          <figcaption>Registration. The physical figures here are what the safety analysis runs on.</figcaption>
+          <figcaption>Registration — the figures the safety analysis runs on.</figcaption>
         </figure>
       </div>
 
@@ -321,28 +339,28 @@
           <span class="pill pill-built">Built</span>
           <div class="status-text">
             <h4>Registration &amp; safety analysis</h4>
-            <p>A web form feeding a SQLite backend that scores thrust margin, endurance, wind risk and payload utilization automatically.</p>
+            <p>A web form and SQLite backend that scores thrust margin, endurance, wind risk and payload use.</p>
           </div>
         </div>
         <div class="status-row">
           <span class="pill pill-built">Built</span>
           <div class="status-text">
             <h4>Authority approval dashboard</h4>
-            <p>A desktop app where an authority reviews pending registrations against those metrics and approves or denies with a structured reason.</p>
+            <p>A desktop app where an authority reviews registrations and approves or denies with a structured reason.</p>
           </div>
         </div>
         <div class="status-row">
           <span class="pill pill-built">Built</span>
           <div class="status-text">
             <h4>Encrypted licence credential</h4>
-            <p>Approved drones get a Fernet-encrypted QR licence. The link it points to isn't hosted yet — a known gap, not a hidden one.</p>
+            <p>A Fernet-encrypted QR licence. The link it points to isn't hosted yet — a known gap, not a hidden one.</p>
           </div>
         </div>
         <div class="status-row">
           <span class="pill pill-prelim">Preliminary</span>
           <div class="status-text">
             <h4>Physical module</h4>
-            <p>Early experiments only: API calls, heartbeat, control logic over Wi-Fi. No long-range link. The plan is cellular; it isn't built.</p>
+            <p>API calls, heartbeat and control logic over Wi-Fi. No long-range link — the plan is cellular, and it isn't built.</p>
           </div>
         </div>
         <div class="status-row">
@@ -394,28 +412,19 @@
       <div class="candidates">
         <p class="section-label">Also unsolved</p>
         <ul>
-          <li><strong>It only matters if authorities adopt it.</strong> Without regulatory
-              integration, a verification layer nobody is obliged to check is just a concept.</li>
-          <li><strong>It centralises sensitive data.</strong> Licensing and operator records in
-              one place raises privacy and governance questions — access, retention, legal
-              basis — that need answering before deployment.</li>
+          <li><strong>Adoption.</strong> A layer nobody is obliged to check is just a concept.</li>
+          <li><strong>Central records.</strong> Operator data in one place raises privacy questions
+              that need answering before any of this is deployed.</li>
         </ul>
       </div>
 
       <div class="asking">
         <h3>Where I could use help</h3>
-        <p>Any one of these, from anyone who has been near it:</p>
         <ul>
-          <li><strong>Kept a system working when the network doesn't.</strong> Drone comms,
-              telemetry, industrial control — what broke, and what would you never do again?</li>
-          <li><strong>Taken something through a regulator, or worked inside one.</strong>
-              How does adoption actually begin? Who has to be convinced first?</li>
-          <li><strong>Handled licensing or personal data at scale.</strong> What would you
-              insist on before a system like this held real operator records?</li>
+          <li><strong>Kept a system running when the network doesn't.</strong> What broke?</li>
+          <li><strong>Taken something through a regulator.</strong> Who has to be convinced first?</li>
+          <li><strong>Handled personal data at scale.</strong> What would you insist on?</li>
         </ul>
-        <p class="asking-close">
-          Fifteen minutes on any of them is worth more than another month of me guessing.
-        </p>
       </div>
     </div>
   </section>
