@@ -1,0 +1,16 @@
+DATC — evidence manifest
+Vihaan Mittal. Generated 2026-08-22 15:42:45 UTC
+
+Each file below is hashed. This manifest is anchored to the Bitcoin
+blockchain, so the hashes provably existed at that time. The files
+themselves are not published.
+
+CREATED             BYTES  SHA-256                                                           FILE
+2026-01-12           3637  91eb6cd39ed4fdc3b8556c5efe2b5c6dd57375f20443fabae69f99e7e13fa388  ~/Documents/Arduino/Datc/Datc.ino
+2026-01-12           3560  4db92367e2c6dc7cd777fb79320de6c824308f244e6176816e8c799323e11050  ~/Documents/Arduino/datc_cc_esp8266/datc_cc_esp8266.ino
+2026-01-18          12450  0a3b8bbb6b8d27be46032469970ff81dabb504ac782f179b87dd625d792a2a94  ~/Documents/Arduino/datc_esp32_cc_gps/datc_esp32_cc_gps.ino
+2026-06-30        4071033  7f38e234c4143261e0106332edd407ff32f6e76a064c2a9783968d91d0a9df8a  ~/Desktop/datc-prototype-backup.zip
+2026-07-19         683204  2dbc5ed26422cf8ef52d076267c2a8d60afede0f1ab73603a42fe41293fd2e1f  ~/Documents/Personal Projects/DATC-Drone/Digital Airspace Drone System (1).pdf
+2026-07-19       13384330  87f41ed6e7d4a0af98e90865e4110051c33b998a69c9fed3ddb2ff430983cb5c  ~/Documents/Personal Projects/DATC-Drone/DATC Product Demo Video (1).mp4
+2026-08-15          97962  35aee034333d3667a6838f18ab48a421193bf5dfd55322803a4aa43f6e14d567  ~/Documents/Personal Projects/DATC-Drone/DATC Research Paper.pdf
+2026-08-15         510456  2f793553eb353802363a3ebd491ac1f56091ef7d6102ad11f1fc06a4a05afe39  ~/Documents/Personal Projects/DATC-Drone/DATC Paper Summer 2026.pdf
