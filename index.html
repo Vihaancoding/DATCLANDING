@@ -286,31 +286,35 @@
   <section class="section" id="approach">
     <div class="container">
       <p class="section-label"><i>04</i>What each part has to do</p>
-      <h2>All three have to hold at once.</h2>
+      <h2>Three things today's system can't do.</h2>
 
       <ol class="mech-list">
         <li class="mech-step">
           <span class="mech-index">01</span>
           <div>
             <span class="role-tag">The drone</span>
-            <h3>Verifiable identity</h3>
-            <p>A unique ID tied to owner, model and licence validity — checked electronically in flight, not once at registration.</p>
+            <h3>It says who it is, in the air</h3>
+            <p>Today a drone is checked once, on paper, when it registers. This one carries an ID
+               that can be read while it's flying — the owner, the model, and whether the licence
+               is still valid.</p>
           </div>
         </li>
         <li class="mech-step">
           <span class="mech-index">02</span>
           <div>
             <span class="role-tag">DATC</span>
-            <h3>Live authorization</h3>
-            <p>Permission status updates from a central platform, instead of living in a record the operator controls and declares.</p>
+            <h3>Its permission can change mid-flight</h3>
+            <p>Today the operator declares their own permission and nobody checks it again. Here it
+               lives on a central system that can withdraw it at any moment.</p>
           </div>
         </li>
         <li class="mech-step">
           <span class="mech-index">03</span>
           <div>
             <span class="role-tag">The authority</span>
-            <h3>Real-time intervention</h3>
-            <p>An authority can ground an active flight, rather than deny a permit beforehand or read a log afterwards.</p>
+            <h3>Someone can stop it while it's up</h3>
+            <p>Today an authority can refuse a permit beforehand, or read a log afterwards. Neither
+               helps while the drone is in the air. This lets them ground it there and then.</p>
           </div>
         </li>
       </ol>
@@ -392,12 +396,12 @@
       <ol class="role-flow fork">
         <li class="role">
           <span class="role-tag">It keeps flying</span>
-          <p>It carries on, but nobody on the ground can check it any more. Engineers call this failing open.</p>
+          <p>It carries on, but nobody on the ground can check it any more.</p>
           <span class="pill pill-planned">Defeats the purpose</span>
         </li>
         <li class="role">
           <span class="role-tag">It gets grounded</span>
-          <p>A perfectly legal flight is cut short because the signal was weak. Failing closed.</p>
+          <p>A perfectly legal flight is cut short because the signal was weak.</p>
           <span class="pill pill-planned">Repeats the original problem</span>
         </li>
       </ol>
