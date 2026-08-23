@@ -380,7 +380,7 @@
   <!-- 6. THE OPEN PROBLEM -->
   <section class="section" id="question">
     <div class="container">
-      <p class="section-label"><i>06</i>The problem I can't solve alone</p>
+      <p class="section-label"><i>06</i>The problems I can't solve alone</p>
       <h2>If the link drops mid-flight, what should the system do?</h2>
 
       <p class="prose">
@@ -390,13 +390,13 @@
 
       <ol class="role-flow fork">
         <li class="role">
-          <span class="role-tag">Fails open</span>
-          <p>Keeps flying. An aircraft nobody can verify stays airborne.</p>
+          <span class="role-tag">It keeps flying</span>
+          <p>Fail open, and an aircraft nobody can verify stays in the air.</p>
           <span class="pill pill-planned">Defeats the purpose</span>
         </li>
         <li class="role">
-          <span class="role-tag">Fails closed</span>
-          <p>Gets grounded. A licensed operator loses a flight to bad coverage.</p>
+          <span class="role-tag">It gets grounded</span>
+          <p>Fail closed, and a licensed operator loses a flight to bad coverage.</p>
           <span class="pill pill-planned">Repeats the original problem</span>
         </li>
       </ol>
@@ -404,9 +404,9 @@
       <div class="candidates">
         <p class="section-label">What I've considered</p>
         <ul>
-          <li>Signed authorisation cached on the module, valid for a bounded window</li>
+          <li>A signed permission stored on the drone, valid for a set time</li>
           <li>Degraded mode with a tighter geofence</li>
-          <li>Store-and-forward log, reconciled on reconnect</li>
+          <li>Log locally while offline, reconcile when the link returns</li>
           <li>A fallback radio link — none is built yet, Wi-Fi is as far as it goes</li>
         </ul>
       </div>
