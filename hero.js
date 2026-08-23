@@ -138,7 +138,9 @@ if (canvas && hero && !reduce.matches) {
     target: new THREE.Vector3(
       -2.4 + 3.0 * swap(p) * crossK,
       // Lift the aim point through the middle of the swap so the aircraft arcs.
-      -0.9 + 0.7 * p - portraitK * 1.5 - 1.05 * Math.sin(Math.PI * swap(p)),
+      // Dropping the aim point lifts the aircraft in frame; on a phone it has to
+      // clear the copy and sit in the open sky above it.
+      -0.9 + 0.7 * p - portraitK * 1.5 - mobileK * 1.6 - 1.05 * Math.sin(Math.PI * swap(p)),
       -travel(p) * 0.8
     )
   });
@@ -174,12 +176,15 @@ if (canvas && hero && !reduce.matches) {
   // Portrait windows crop the aircraft in half at the desktop framing, so widen.
   let fitBack = 1;
   let portraitK = 0;
+  // Width-gated, unlike portraitK: a tall desktop window is not a phone.
+  let mobileK = 0;
   function resize() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     if (!w || !h || (canvas.width === w * renderer.getPixelRatio() && camera.aspect === w / h)) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     portraitK = clamp((1.2 - camera.aspect) / 0.7, 0, 1);
+    mobileK = clamp((820 - innerWidth) / 60, 0, 1);
     camera.fov = 38 + portraitK * 16;
     fitBack = 1 + portraitK * 0.42;
     camera.updateProjectionMatrix();
