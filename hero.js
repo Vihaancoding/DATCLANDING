@@ -136,9 +136,7 @@ if (canvas && hero && !reduce.matches) {
     elevation: (3 - 9 * p) * DEG,   // slightly below the aircraft: sky behind it, horizon low in frame
     // Target sits left of and below the aircraft so it holds the upper right.
     target: new THREE.Vector3(
-      // The -2.4 aim offset parks the aircraft upper-right so the copy can own
-      // the left. In portrait there is no left column, so relax it to centre.
-      -2.4 * (1 - portraitK * 0.82) + 3.0 * swap(p) * crossK,
+      -2.4 + 3.0 * swap(p) * crossK,
       // Lift the aim point through the middle of the swap so the aircraft arcs.
       -0.9 + 0.7 * p - portraitK * 1.5 - 1.05 * Math.sin(Math.PI * swap(p)),
       -travel(p) * 0.8

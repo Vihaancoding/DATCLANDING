@@ -696,12 +696,6 @@ a  { color: inherit; }
   .hero-note { font-size: 0.875rem; }
   .hero-mech { font-size: 0.6875rem; letter-spacing: 0.12em; }
   .hero-mech i { margin: 0 0.35em; }
-  /* Anchored under the copy rather than tracked to the aircraft. */
-  .js .id-tag {
-    top: auto; bottom: 14%; left: var(--sp-3); right: auto;
-    transform: none !important;
-    padding: 7px 11px 7px 9px; gap: 8px;
-  }
-  .id-code { font-size: 0.6875rem; }
-  .id-state { font-size: 0.5625rem; }
+  /* No room for it beside the aircraft at this width. */
+  .id-tag, .js .id-tag { display: none; }
 }
