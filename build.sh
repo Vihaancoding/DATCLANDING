@@ -39,7 +39,6 @@ cat > dist/llms.txt <<'EOF'
 > that no authority can verify in real time whose drone is overhead and whether
 > it is cleared to be there. DATC is an attempt at that missing layer.
 
-By Vihaan Mittal, Grade 9, Pathways School Gurgaon, India.
 Contact: vihaan.mittal@pathways.in
 Source: https://github.com/Vihaancoding/DATCLANDING
 
