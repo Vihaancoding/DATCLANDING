@@ -1,17 +1,17 @@
-# Outreach drafts
+# Outreach
 
-Edit these before sending. They should sound like you, and right now they sound like me.
-
-One rule: ask the question, don't pitch the project. Nobody owes a stranger a site visit.
+One Reddit post, and an email template for later. Ask the question, don't pitch the project.
 
 ---
 
-## 1. PX4 / ArduPilot forums
+## The post
 
-The people here have actually lost telemetry mid-flight. Post in General or Developer.
-Not Showcase.
+r/diydrones. Check the sidebar rules before you post — a link to your own site in the body is
+the thing most likely to get it removed, so it isn't in here. If someone asks, put it in a
+comment.
 
-**Subject:** What should happen to authorization state on link loss?
+**Title:** Drone has to check in with a server to stay authorized. What should it do when the
+link drops?
 
 > I'm building a thing for school where a drone has to check in with a server that says whether
 > it's still cleared to fly. Works fine on a bench. Falls apart the moment I think about the
@@ -31,49 +31,9 @@ Not Showcase.
 >
 > Has anyone built something that had to keep working when the network didn't? What went wrong?
 >
-> https://datc-drones.in if you want to see what I've got so far. I'm in 9th grade so tell me
-> if I'm missing something obvious.
+> I'm in 9th grade so tell me if I'm missing something obvious.
 
----
-
-## 2. Reddit
-
-Two subreddits, two questions. No link, no project name in either. Post one, wait a few days,
-post the other.
-
-Neither of these gives anything away. The link loss problem is interesting by itself.
-
-### r/diydrones
-
-**Title:** Drone has to check in with a server to stay authorized. Link drops. Then what?
-
-> Been stuck on this for a while.
->
-> A drone has to stay in touch with something that says it's currently allowed to fly. Halfway
-> through a flight it loses connection. Does it keep going or does it land?
->
-> Keep going and there's an aircraft nobody can verify. Land and you've grounded somebody who
-> did nothing wrong.
->
-> I keep ending up at "cache a permission that expires" but that just turns it into an argument
-> about how long. 30 seconds? 5 minutes? I don't know how you'd even decide.
->
-> Has anyone run into this for real?
-
-### r/drones
-
-**Title:** How does a new drone rule actually become a rule?
-
-> Not a tech question. More about how the process works.
->
-> If someone thought drones should be checkable while they're flying, rather than just
-> registered ahead of time, who would have to agree before that turned into an actual
-> requirement? Does the regulator move first, or does it need manufacturers on board, or
-> insurance companies?
->
-> Has anything like that gone from someone's idea to mandatory? How long did it take?
-
-**If someone asks what you're working on**, link it then. Offered up front it looks like an ad.
+If someone asks to see it, reply with https://datc-drones.in
 
 ---
 
