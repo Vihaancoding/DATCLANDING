@@ -45,12 +45,26 @@ byte-identical to what existed on this date.
 
 ## Cryptographic timestamps
 
-`timestamp.sh` builds `timestamps/MANIFEST.txt` — every DATC file on the
-machine with its creation date, size and SHA-256 — and anchors that manifest
-into the Bitcoin blockchain via OpenTimestamps. One proof covers every file,
-and nothing is published: only the hashes leave the machine.
+`timestamp.sh` builds `timestamps/MANIFEST.txt` — eight DATC files with their
+creation date, size and SHA-256 — and anchors that manifest into the Bitcoin
+blockchain via OpenTimestamps. The list is deliberate rather than a wildcard
+sweep: design references, duplicate exports and private correspondence are
+excluded, since a padded evidence set is weaker than a tight one. Nothing is
+published; only the hashes leave the machine.
+
+Confirmed 22 August 2026:
+
+| Proof | Bitcoin block |
+|---|---|
+| `MANIFEST.txt.ots` (all eight files) | 963607 |
+| `datc-prototype-backup.zip.ots` | 963607 |
+| `Datc.ino.ots` (earliest artefact) | 963605 |
 
     ots verify timestamps/MANIFEST.txt.ots -f timestamps/MANIFEST.txt
+
+Verifying needs a Bitcoin node, or the web verifier at opentimestamps.org.
+The proofs are upgraded and self-contained: they no longer depend on the
+OpenTimestamps calendar servers remaining online.
 
 Unlike file dates, this cannot be back-dated. The blockchain fixes when the
 hash was submitted, and the hash could only have been produced by files that

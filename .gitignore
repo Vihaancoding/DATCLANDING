@@ -4,3 +4,4 @@ node_modules/
 .vercel/
 .claude/
 CLAUDE.md
+*.ots.bak
