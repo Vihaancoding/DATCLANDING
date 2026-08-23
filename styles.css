@@ -562,6 +562,11 @@ a  { color: inherit; }
   width: 10px; height: 1px; background: var(--identity);
 }
 
+.candidates-note {
+  margin-top: var(--sp-2);
+  color: var(--muted); font-size: 0.875rem; font-style: italic;
+}
+
 .asking {
   margin-top: var(--sp-5); padding-top: var(--sp-4);
   border-top: 1px solid var(--line);
