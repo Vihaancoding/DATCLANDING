@@ -42,25 +42,50 @@ which makes people more willing to correct rather than dismiss.
 
 ---
 
-## 2. r/diydrones
+## 2. Reddit
 
-Faster replies, less specialist. Useful mainly as a test of whether the idea reads clearly to
-someone encountering it cold. Reddit punishes anything that smells like promotion — no logo, no
-"check out my project", and reply to every comment.
+Two subreddits, two different questions. Post one, wait a few days, post the other. Reddit
+punishes anything that reads as promotion, so there is no link and no project name in either.
 
-**Title:** If a drone loses its connection mid-flight, should it keep flying or land?
+Both are written to give nothing away. The link-loss trade-off is a real question on its own
+terms — you can ask it without describing what you are building, and the answers are just as
+useful.
 
-> Working on a school project about verifying drone identity in flight — the idea being an
-> authority can check whose drone is overhead while it's still up there, instead of relying on
-> a registration form from three weeks ago.
+### r/diydrones — the engineering question
+
+Builders and firmware people. Best fit for the failure-mode question.
+
+**Title:** What should a drone do if it loses its connection to a ground authorization service?
+
+> Hypothetical I keep going in circles on.
 >
-> Stuck on one thing. If the connection drops, the system has to pick: keep flying (an
-> unverifiable aircraft stays in the air) or ground it (a legitimate operator loses a flight
-> because of bad signal). Both seem wrong.
+> Say a drone has to stay in contact with a service that says whether it's currently cleared to
+> fly. Mid-flight, the link drops.
 >
-> How do you think it should behave? Genuinely asking — I don't have a good answer.
+> Two options. It keeps flying, and now something is in the air that can't be checked. Or it
+> comes down, and an operator who did nothing wrong loses a flight to bad signal.
+>
+> Is there a third answer? I keep landing on some version of "cache a permission that expires,"
+> but that just moves the problem to how long the window is.
+>
+> Anyone dealt with something like this in practice?
 
-Only post the link if someone asks. It'll do better that way.
+### r/drones — the regulation question
+
+Operators and people who follow the rules closely.
+
+**Title:** How would a rule requiring live authorization checks actually get adopted?
+
+> Curious about the process rather than the tech.
+>
+> If someone proposed that drones should be checkable in real time — not just registered
+> beforehand — who would actually have to agree for that to become a requirement? Regulator
+> first, manufacturers first, insurers?
+>
+> Has anything similar gone from proposal to mandatory, and how long did it take?
+
+**If someone asks what you're working on**, then say so and link it. Volunteered, it reads as
+an ad; asked for, it reads as an answer.
 
 ---
 
