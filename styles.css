@@ -671,7 +671,9 @@ a  { color: inherit; }
 .status-row { grid-template-columns: 1fr; gap: var(--sp-1); }
   .hero-frames { padding: 132px 0 var(--sp-6); }
 
-  .js .hero { height: 190vh; }
+  /* Same as desktop: at 190vh each beat handover finished inside 90px of
+     scroll, which a single flick skips straight over. */
+  .js .hero { height: 260vh; }
 
   /* The copy runs the full width here, so the side-to-side scrim does nothing. */
   .js .scrim-l, .js .scrim-r {
