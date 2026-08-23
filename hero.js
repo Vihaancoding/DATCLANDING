@@ -186,7 +186,8 @@ if (canvas && hero && !reduce.matches) {
     portraitK = clamp((1.2 - camera.aspect) / 0.7, 0, 1);
     mobileK = clamp((820 - innerWidth) / 60, 0, 1);
     camera.fov = 38 + portraitK * 16;
-    fitBack = 1 + portraitK * 0.42;
+    // Extra pull-back on a phone: the rotor span is what runs off the edge.
+    fitBack = 1 + portraitK * 0.42 + mobileK * 0.46;
     camera.updateProjectionMatrix();
   }
 
