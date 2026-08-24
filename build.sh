@@ -16,6 +16,8 @@ cp index.html styles.css hero.js vercel.json dist/
 cp public/og.jpg public/favicon-32.png public/apple-touch-icon.png dist/public/
 cp public/logo-mark.png public/logo-lockup.png dist/public/
 cp public/shot-dashboard.jpg public/shot-registration.jpg dist/public/
+# Browsers request /favicon.ico at the root whatever the HTML says.
+cp favicon.ico dist/
 cp public/models/drone.glb public/models/city-light.exr dist/public/models/
 
 cat > dist/robots.txt <<'EOF'
